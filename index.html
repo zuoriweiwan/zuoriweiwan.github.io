@@ -189,7 +189,7 @@
     </div>
 
     <script>
-        // 关心话语数组（扩展至300条）
+        // 关心话语数组（300条）
         const careMessages = [
             // 早晨问候（60条）
             "早安！今天也是充满希望的一天，记得吃早餐哦～",
@@ -530,22 +530,20 @@
             "bg-care-indigo text-indigo-800"
         ];
 
-        // 通知配置
+        // 通知配置 - 加快弹窗速度（50-150毫秒间隔）
         const config = {
-            minInterval: 300,      // 最小弹出间隔（毫秒）
-            maxInterval: 800,      // 最大弹出间隔（毫秒）
-            maxVisible: 30,        // 最大可见通知数（到达上限后停止生成）
-            duration: 600000       // 总持续时间（毫秒）
+            minInterval: 50,       // 最小弹出间隔（毫秒）- 加快速度
+            maxInterval: 150,      // 最大弹出间隔（毫秒）- 加快速度
+            firstPauseCount: 150   // 首次生成150条后暂停
         };
 
         // 全局变量
         let notificationQueue = [];
         let visibleNotifications = [];
         let notificationInterval;
-        let durationTimeout;
         let isRunning = false;
         let isPaused = false;
-        let remainingTime = 0;
+        let isFirstBatchComplete = false; // 标记首次150条是否完成
 
         // DOM元素
         const startButton = document.getElementById('startButton');
@@ -637,10 +635,6 @@
             startButton.classList.add('hidden');
             pauseButton.classList.remove('hidden');
             
-            durationTimeout = setTimeout(() => {
-                stopNotifications();
-            }, config.duration);
-            
             // 立即显示第一个内容通知
             createNotification();
             scheduleNextNotification();
@@ -652,9 +646,6 @@
             
             isPaused = true;
             clearTimeout(notificationInterval);
-            clearTimeout(durationTimeout);
-            
-            remainingTime = durationTimeout._idleStart + durationTimeout._idleTimeout - Date.now();
             
             pauseButton.classList.add('hidden');
             startButton.classList.remove('hidden');
@@ -667,8 +658,8 @@
             
             isRunning = false;
             isPaused = false;
+            isFirstBatchComplete = false;
             clearTimeout(notificationInterval);
-            clearTimeout(durationTimeout);
             
             // 关闭所有现有通知
             document.querySelectorAll('.notification:not(.gift-notification)').forEach(notification => {
@@ -687,13 +678,10 @@
         function scheduleNextNotification() {
             if (!isRunning || isPaused) return;
             
-            // 检查是否达到最大数量上限
-            if (visibleNotifications.length >= config.maxVisible) {
-                // 到达上限，停止生成新通知，但保留现有通知
-                pauseButton.classList.add('hidden');
-                startButton.classList.remove('hidden');
-                startButton.innerHTML = '<i class="fa fa-play"></i><span class="button-tooltip">继续</span>';
-                isPaused = true;
+            // 检查是否是首次生成且已达到150条
+            if (!isFirstBatchComplete && visibleNotifications.length >= config.firstPauseCount) {
+                isFirstBatchComplete = true;
+                pauseNotifications(); // 自动暂停
                 return;
             }
             
@@ -706,11 +694,6 @@
 
         // 创建内容通知
         function createNotification() {
-            // 检查是否达到最大数量上限
-            if (visibleNotifications.length >= config.maxVisible) {
-                return;
-            }
-            
             // 创建通知元素
             const notification = document.createElement('div');
             notification.className = 'notification notification-shadow glass-effect animate-pop-in';
@@ -787,11 +770,6 @@
             
             notification.classList.add('fade-out');
             setTimeout(() => notification.remove(), 500);
-            
-            // 如果之前因达到上限而停止，现在数量减少了，可以继续生成
-            if (isPaused && visibleNotifications.length < config.maxVisible) {
-                startNotifications();
-            }
         }
 
         // 窗口大小变化时重新调整内容通知位置
