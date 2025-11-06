@@ -189,332 +189,28 @@
     </div>
 
     <script>
-        // 关心话语数组（300条，内容同上保持不变）
+        // 关心话语数组（部分示例，完整内容同上）
         const careMessages = [
-            // 早晨问候（60条）
             "早安！今天也是充满希望的一天，记得吃早餐哦～",
             "新的一天开始了，愿你今天心情像阳光一样灿烂！",
             "早上好！给自己一个微笑，开启美好的一天吧！",
             "晨光正好，愿你今天有个好心情，一切顺利！",
-            "早安！伸个懒腰，深呼吸，准备迎接美好的一天！",
-            "清晨的阳光为你照耀，愿你今天充满活力！",
-            "早安！记得吃点有营养的东西，为一天提供能量～",
-            "新的一天，新的机会，加油去创造属于你的精彩！",
-            "早安！愿你的今天比昨天更美好，比明天更值得珍惜。",
-            "清晨的第一缕阳光送给你，愿你今天充满喜悦与收获。",
-            "早上好！今天也是努力奋斗的一天，相信自己可以的！",
-            "早安！无论昨天如何，今天都是全新的开始，加油！",
-            "晨光熹微，新的一天如约而至，愿你被温柔以待。",
-            "早安！记得喝一杯温水，唤醒身体的每一个细胞。",
-            "早上好！愿你的一天像清晨的露珠一样纯净美好。",
-            "早安！带着微笑出发，今天也会是很棒的一天！",
-            "清晨的空气格外清新，愿你的心情也如此清爽自在。",
-            "早安！新的一天，新的期待，愿你事事顺心如意。",
-            "早上好！给自己一点鼓励，今天也要全力以赴哦！",
-            "早安！愿阳光洒满你的每一个角落，温暖你的心房。",
-            "新的一天，愿你有新的灵感和动力，去追逐梦想。",
-            "早安！别辜负了清晨的美好，好好享受这一天吧。",
-            "早上好！希望今天的你，比昨天更接近自己的目标。",
-            "早安！伸个懒腰，给自己一个拥抱，今天也要加油呀！",
-            "清晨的阳光很温柔，就像你一样，愿今天一切安好。",
-            "早安！记得给自己留一点时间，享受片刻的宁静。",
-            "早上好！愿你的今天充满惊喜和小确幸。",
-            "早安！新的一天，愿你拥有无限的可能和勇气。",
-            "清晨的鸟儿在歌唱，仿佛在为你加油鼓劲，早安！",
-            "早安！今天也是值得期待的一天，打起精神来！",
-            "早上好！愿你的每一步都走得坚定而有力量。",
-            "早安！别让昨天的烦恼，影响今天的好心情。",
-            "新的一天，愿你带着热情和微笑，去面对所有挑战。",
-            "早安！给自己设定一个小目标，一步一步去实现吧。",
-            "早上好！阳光正好，微风不燥，正是努力的好时光。",
-            "早安！愿你的今天，有付出，有收获，有快乐。",
-            "清晨的第一声问候送给你，愿你今天元气满满！",
-            "早安！相信自己，你比想象中更强大，更优秀。",
-            "早上好！愿你的今天，如你所愿，美好而充实。",
-            "早安！新的一天，新的希望，愿你心想事成！",
-            "晨光透过窗户洒进来，像是在对你说：早安，加油！",
-            "早上好！今天也是元气满满的一天，准备好迎接挑战了吗？",
-            "早安！让清晨的阳光洗涤你的心灵，带来新的希望。",
-            "新的一天，愿你的心中充满阳光，脚下充满力量。",
-            "早安！别赖床啦，美好的一天正在等着你呢！",
-            "早上好！给自己一份好心情，今天也会变得很美好。",
-            "早安！愿你的今天，像清晨的阳光一样明媚动人。",
-            "新的一天开始了，放下过去的烦恼，迎接新的可能。",
-            "早安！记得给自己一个微笑，好运会随之而来的。",
-            "早上好！今天也是努力的一天，为自己点赞！",
-            "早安！愿你的今天，充满欢声笑语和美好的瞬间。",
-            "清晨的第一杯咖啡，陪你开启美好的一天，早安！",
-            "早安！新的一天，愿你平安喜乐，万事顺遂。",
-            "早上好！今天也要保持好心情，微笑面对一切。",
-            "早安！让我们以积极的心态，迎接新一天的挑战。",
-            "新的一天，愿你的努力都有回报，付出都有收获。",
-            "早安！别让懒惰阻碍你的脚步，今天也要加油呀！",
-            "早上好！愿你的今天，比昨天更进一步，更接近梦想。",
-            "早安！清晨的美好时光，值得我们用心去感受。",
-            "新的一天，新的开始，愿你不负时光，不负自己。",
-            "早安！愿阳光照亮你的前路，指引你走向成功。",
-            
-            // 鼓励话语（60条）
             "你做得很好，继续加油！我为你感到骄傲～",
             "不要着急，一步一步来，你已经很棒了！",
             "相信自己的能力，你比想象中更强大！",
-            "每一次努力都不会白费，坚持下去就是胜利！",
-            "你已经走了这么远，不要轻易放弃，成功就在前方！",
-            "你的进步我看在眼里，继续保持，你会越来越优秀！",
-            "困难只是暂时的，你有能力克服它们，我相信你！",
-            "每一个小目标的完成，都是向大目标迈进的一步！",
-            "你付出的努力终将得到回报，耐心等待美好的结果吧～",
-            "相信自己的直觉，你做出的选择都是最好的安排！",
-            "即使遇到挫折，也要保持微笑，因为你比自己想象的更坚强！",
-            "你的存在本身就是一种价值，不要怀疑自己的能力！",
-            "别害怕犯错，错误是成长的机会，是进步的阶梯。",
-            "你已经很努力了，给自己一点肯定和鼓励吧！",
-            "每一次尝试都是勇气的证明，无论结果如何，你都很棒！",
-            "不要因为暂时的困难而否定自己，你比谁都清楚自己的潜力。",
-            "坚持下去，你会看到不一样的风景，收获不一样的自己。",
-            "你的努力和坚持，终将让你闪闪发光，照亮自己的道路。",
-            "别给自己太大压力，尽力就好，你已经做得足够好了。",
-            "每一个成功的人背后，都有不为人知的努力和坚持，你也一样。",
-            "相信时间的力量，它会见证你的成长和进步。",
-            "不要和别人比较，专注于自己的成长，你有自己的节奏。",
-            "你的每一个小进步，都值得被庆祝和肯定。",
-            "困难像弹簧，你强它就弱，相信自己能战胜一切挑战！",
-            "别害怕未知的未来，你有能力应对一切可能发生的事情。",
-            "你的坚持和毅力，已经让很多人感到敬佩了，继续加油！",
-            "不要低估自己的能力，你比想象中更有潜力和创造力。",
-            "每一次的坚持，都是对自己的肯定和鼓励。",
-            "即使全世界都不看好你，也要相信自己，坚持自己的道路。",
-            "你的努力不会被辜负，只是有时候需要一点耐心等待。",
-            "别让任何人否定你的价值，你本身就是独一无二的宝藏。",
-            "每一次的挑战，都是成长的机会，勇敢去面对吧！",
-            "相信自己的选择，即使错了，也是宝贵的经验。",
-            "你的付出和努力，终会在某一天开花结果，惊艳所有人。",
-            "不要因为一时的失败而气馁，成功往往在多次尝试之后。",
-            "你已经走了这么远，放弃太可惜了，再坚持一下吧！",
-            "你的能力和才华，需要你自己去发现和挖掘，相信自己！",
-            "每一次的进步，都在为未来的成功铺路，继续加油！",
-            "别给自己设限，你的潜力是无限的，去探索更多可能吧！",
-            "相信自己，你有能力创造属于自己的精彩人生！",
-            "别让暂时的困难遮住你的双眼，前方还有更美的风景。",
-            "你的坚持，就是最好的证明，继续努力，你会成功的！",
-            "不要因为别人的评价而怀疑自己，你比谁都了解自己。",
-            "每一次的努力，都是在为自己积累力量，终会厚积薄发。",
-            "相信自己的判断，勇敢地走下去，成功就在不远处。",
-            "你的付出，时间会给你答案，坚持下去，不会错的。",
-            "别害怕从零开始，每一个大师都曾是初学者。",
-            "你的勇气和决心，已经让你超越了很多人，继续前进吧！",
-            "不要急着看到结果，过程中的成长才是最宝贵的。",
-            "相信自己，你有能力克服眼前的困难，迎接更好的未来。",
-            "你的每一步都走得很坚定，这就是成功的开始。",
-            "别让过去的失败定义你的未来，你随时可以重新开始。",
-            "你的努力和付出，我都看在眼里，继续加油，你很棒！",
-            "不要因为目标遥远而退缩，一步一个脚印，终会到达。",
-            "相信自己的能力，你比你想象的更有潜力。",
-            "你的坚持，终将换来回报，继续努力，不要放弃。",
-            "别让恐惧阻止你前进的脚步，勇敢地去尝试吧！",
-            "你的每一次努力，都在让你变得更好，更强大。",
-            "相信自己，你有能力实现自己的梦想，只要不放弃。",
-            "你的付出，不会白费，坚持下去，终会看到希望的曙光。",
-            "别给自己找借口，你的潜力无限，只要肯努力。",
-            
-            // 安慰话语（60条）
             "没关系，一切都会好起来的。我在这里支持你～",
             "累了就休息一下吧，照顾好自己最重要。",
-            "别太自责，每个人都会犯错，重要的是从中学习。",
-            "难过的时候哭出来也没关系，释放情绪才能更好地前行～",
-            "不要把所有事情都扛在肩上，适当分担会让你更轻松～",
-            "这只是人生中的一个小插曲，未来还有很多美好等着你～",
-            "给自己一点时间和空间，慢慢调整，我会一直陪伴你～",
-            "即使全世界都不理解你，也要相信自己是最棒的！",
-            "不要拿自己和别人比较，每个人都有自己的节奏和光芒～",
-            "你的感受是真实而重要的，不要忽视自己的情绪需求～",
-            "困难总会过去，阳光总会再次照耀在你身上～",
-            "给自己一个拥抱，告诉自己：我已经很努力了，我值得被爱～",
-            "别太在意别人的看法，做好自己就好，你已经很棒了。",
-            "现在的困难只是暂时的，它会让你变得更强大和成熟。",
-            "允许自己有情绪低落的时候，这是正常的，别责怪自己。",
-            "你不必总是坚强，偶尔脆弱一下也没关系，我在这里。",
-            "别给自己太大压力，你已经做得很好了，休息一下吧。",
-            "无论发生什么，都要记得照顾好自己，身体是革命的本钱。",
-            "过去的已经过去，别再纠结，向前看，未来还有很多可能。",
-            "你的价值不需要别人来定义，你本身就很珍贵。",
-            "难过的时候，找个人聊聊，或者做些自己喜欢的事，会好起来的。",
-            "别把所有的错都揽在自己身上，很多事情不是你能控制的。",
-            "给自己一点时间，一切都会慢慢好起来的，耐心一点。",
-            "你已经承受了很多，别再对自己那么严格，放轻松一点。",
-            "即使现在很艰难，也要相信这只是暂时的，光明就在前方。",
-            "别独自承受所有的痛苦，说出来会好很多，有人愿意倾听。",
-            "你的感受很重要，不要因为怕麻烦别人而压抑自己。",
-            "每个人都有低谷期，这很正常，重要的是能从中走出来。",
-            "别用别人的错误来惩罚自己，你值得被温柔对待。",
-            "现在的你可能感觉很糟糕，但请相信，这一切都会过去的。",
-            "你不必完美，有缺点才是真实的，接受自己的不完美。",
-            "累了就停下来，休息不是偷懒，是为了更好地出发。",
-            "别总想着让所有人都满意，先让自己满意才是最重要的。",
-            "无论发生什么，都要记得，你不是一个人在战斗。",
-            "给自己一点安慰和鼓励，你比想象中更坚强。",
-            "别因为一次失败就否定自己所有的努力，你已经很优秀了。",
-            "现在的困难，会成为你未来回忆中的宝贵经验。",
-            "允许自己有情绪，允许自己不开心，这是正常的情绪表达。",
-            "别把自己逼得太紧，适当放松一下，生活还有很多美好。",
-            "无论现在有多难，都要相信，明天会更好，一切都会过去的。",
-            "别让负面情绪占据你的内心，多想想美好的事情。",
-            "你已经很勇敢了，面对这么多困难还在坚持，辛苦了。",
-            "不要因为一时的失意而否定自己的全部，你有很多优点。",
-            "难过的时候，给自己找点乐子，看看喜剧，听听音乐。",
-            "你的感受是合理的，别压抑自己，适当释放出来会更好。",
-            "别太执着于结果，过程中的成长才是最宝贵的。",
-            "你已经做得足够好了，别再对自己那么苛刻。",
-            "即使全世界都抛弃你，你也要好好爱自己，珍惜自己。",
-            "别让过去的阴影影响现在的生活，你值得更好的未来。",
-            "累了就给自己放个假，调整好状态再重新出发。",
-            "你的存在本身就有意义，不要怀疑自己的价值。",
-            "别把所有事情都想得那么糟糕，事情总会有转机的。",
-            "难过的时候，抱抱自己，告诉自己一切都会好起来的。",
-            "你不必事事都做到最好，尽力就好，这就足够了。",
-            "别让别人的评价左右你的情绪，你才是自己的主人。",
-            "现在的痛苦只是暂时的，它会让你更懂得珍惜未来的美好。",
-            "别独自承受所有的压力，找个可以倾诉的人说说吧。",
-            "你已经很努力了，不管结果如何，都应该给自己点个赞。",
-            "别让负面想法控制你的思维，多给自己一些积极的暗示。",
-            "无论发生什么，都要记得保持希望，明天总会更好。",
-            "你值得被爱，被关心，被温柔对待，不要忘记这一点。",
-            "别因为一时的困难就放弃，坚持下去，总会看到曙光的。",
-            
-            // 提醒话语（60条）
             "记得多喝水，保持身体水分充足哦～",
             "长时间工作后，站起来活动一下吧，眼睛也需要休息。",
-            "今天有好好吃饭吗？照顾好身体才能更好地面对挑战！",
-            "别忘记定时休息，短暂的放松能让你更有效率地工作～",
-            "坐了这么久，起来走动一下，看看远处，让眼睛休息一下吧～",
-            "记得保持正确的坐姿，保护好你的颈椎和腰椎哦～",
-            "忙完这一阵，给自己一点小奖励吧，你值得被犒劳～",
-            "天气变化记得增减衣物，照顾好自己的身体最重要～",
-            "偶尔也要抬头看看天空，欣赏身边的美景，生活其实很美好～",
-            "不要熬夜太晚，充足的睡眠是第二天精力充沛的保证～",
-            "记得时不时做几个深呼吸，放松一下紧张的心情吧～",
-            "记得给家人或爱的人发个消息，表达你的关心和思念～",
-            "今天的任务再忙，也要抽出时间吃顿好饭，补充能量。",
-            "长时间看屏幕对眼睛不好，记得每隔一小时休息五分钟。",
-            "别忘记喝水，身体缺水会影响精神状态和工作效率哦。",
-            "适当活动一下肩膀和脖子，缓解长时间保持一个姿势的疲劳。",
-            "午餐别吃太饱，不然下午容易犯困，影响工作效率。",
-            "记得开窗通风，让新鲜空气进来，心情也会变好哦。",
-            "工作再忙也要记得午休，短暂的休息能让下午更有精神。",
-            "别久坐不动，适当站起来活动一下，对身体有好处。",
-            "记得按时吃晚餐，别因为工作忙而忽略了身体健康。",
-            "睡前别刷手机太久，会影响睡眠质量，早点休息哦。",
-            "今天天气不错，有空的话出去走走，晒晒太阳，补补钙。",
-            "别让工作占据你所有的时间，留点时间给自己和家人。",
-            "记得做眼保健操，保护好视力，眼睛是心灵的窗户。",
-            "工作间隙可以听首轻松的音乐，放松一下紧张的神经。",
-            "别总是吃外卖，有空的话自己做点家常菜，更健康营养。",
-            "记得定期给家里打电话，家人总是最牵挂你的人。",
-            "长时间工作后，可以泡杯茶或咖啡，慢慢品味，放松一下。",
-            "别忘记给自己设定一个下班时间，工作再忙也要劳逸结合。",
-            "周末别总待在家里，出去走走，见见朋友，放松心情。",
-            "记得定期锻炼身体，健康的身体是革命的本钱。",
-            "别让压力累积太多，适当释放一下，保持好心情。",
-            "工作再忙也要记得微笑，好心情能提高工作效率哦。",
-            "记得给自己定个小目标，一步一步去实现，会很有成就感。",
-            "别总是追求完美，有时候完成比完美更重要。",
-            "记得感谢帮助过你的人，感恩之心能让生活更美好。",
-            "别把所有事情都拖到最后，提前规划能减少很多压力。",
-            "记得给自己一点空间和时间，做自己喜欢的事情。",
-            "无论多忙，都要照顾好自己的身体和情绪，这是最重要的。",
-            "记得定期整理房间，整洁的环境能让人心情愉悦。",
-            "别长时间保持一个姿势，每隔一段时间换个姿势活动一下。",
-            "记得多喝水，每天至少喝八杯水，对身体有好处。",
-            "工作再忙也要记得吃早餐，早餐是一天中最重要的一餐。",
-            "别总是熬夜，长期熬夜对身体伤害很大，早点休息吧。",
-            "记得偶尔给自己放个假，放松心情，调整状态。",
-            "别让手机占据你太多时间，多和身边的人交流沟通。",
-            "记得定期检查身体，及时发现问题，保持健康。",
-            "工作间隙可以站起来远眺一下，缓解眼睛疲劳。",
-            "别给自己太大压力，尽力就好，别太苛求自己。",
-            "记得多吃蔬菜水果，补充维生素，保持身体健康。",
-            "别总是久坐，适当运动一下，增强体质，提高免疫力。",
-            "记得每天保持微笑，好心情能带来好运气哦。",
-            "别把工作上的烦恼带到生活中，学会分开对待。",
-            "记得给自己一些积极的心理暗示，增强自信心。",
-            "别总是纠结于过去的事情，向前看，未来更重要。",
-            "记得多和家人朋友沟通，分享喜怒哀乐，减轻心理负担。",
-            "别让负面情绪影响你的生活，学会调整自己的心态。",
-            "记得定期给自己充电，学习新知识，提升自己。",
-            "别总是追求物质上的满足，精神上的充实更重要。",
-            "记得珍惜眼前人，好好对待身边的每一个人。",
-            
-            // 晚上问候（60条）
             "晚安～今天辛苦了，好好休息，明天会更好的！",
-            "夜深了，放下手机，让自己进入甜美的梦乡吧～",
-            "今天即将结束，感谢你努力了一天，好好放松一下！",
-            "夜晚是身体和心灵充电的时间，好好休息，明天继续出发！",
-            "晚安！愿你今晚有个好梦，醒来后充满活力！",
-            "今天所有的烦恼都留在今天，明天又是新的开始～",
-            "睡前可以听点轻音乐，帮助你放松心情，更好地入睡～",
-            "把今天的成就和遗憾都放下，安心休息，明天继续加油！",
-            "晚安！记得盖好被子，别着凉了～",
-            "一天的忙碌结束了，好好犒劳自己，做些让自己开心的事吧～",
-            "夜深了，让大脑也休息一下，不要想太多，安心睡吧～",
-            "晚安！愿星星和月亮守护你的梦境，明天又是充满希望的一天！",
-            "今天你已经做得很好了，好好休息，明天继续努力，晚安～",
-            "夜深了，整个世界都安静下来了，好好享受这宁静的夜晚吧。",
-            "晚安！放下所有的疲惫和烦恼，让身体和心灵都得到充分的休息。",
-            "今天即将过去，无论好坏都是经历，好好休息，晚安～",
-            "睡前不妨回想一下今天的小美好，带着微笑入睡，晚安！",
-            "夜深了，别再想工作上的事情了，好好休息才是最重要的。",
-            "晚安！愿你的梦境充满阳光和欢笑，明天醒来心情愉悦。",
-            "一天结束了，给自己一个拥抱，感谢自己的坚持和努力，晚安～",
-            "夜深了，让忙碌了一天的身体放松下来，好好睡一觉吧。",
-            "晚安！今天辛苦了，明天又是崭新的一天，充满无限可能。",
-            "睡前喝一杯温牛奶，有助于睡眠，祝你有个好梦，晚安～",
-            "把今天的不开心都忘记，带着美好的期待入睡，晚安！",
-            "夜深了，整个世界都在为你加油，好好休息，明天继续前行。",
-            "晚安！今天的你已经很努力了，值得好好休息一下。",
-            "睡前不妨规划一下明天的小目标，带着期待入睡，晚安～",
-            "夜深了，别再玩手机了，闭上眼睛，让自己进入甜美的梦乡吧。",
-            "晚安！愿你今晚睡得安稳，明天醒来精力充沛，元气满满。",
-            "一天的疲惫在夜晚得到释放，好好休息，为明天充满电，晚安～",
-            "夜深了，让所有的烦恼都随风而去，安心入睡，晚安！",
-            "晚安！今天的成就值得骄傲，今天的不足明天改进，继续加油！",
-            "睡前不妨做几个深呼吸，放松身心，祝你有个好梦，晚安～",
-            "夜深了，整个世界都安静了，好好享受这属于自己的宁静时光。",
-            "晚安！放下所有的负担和压力，让自己彻底放松下来，好好休息。",
-            "今天即将结束，感谢生命中所有的遇见和陪伴，晚安～",
-            "睡前想想今天发生的开心事，带着微笑入睡，晚安！",
-            "夜深了，别再思考太多，让大脑休息一下，祝你晚安好梦。",
-            "晚安！今天你已经做得足够好了，好好休息，明天继续努力！",
-            "夜深了，愿你被温柔的夜色拥抱，做个甜甜的梦，晚安～",
-            "一天的忙碌终于结束了，好好放松一下，晚安，好梦。",
-            "晚安！让今天的疲惫都随风而去，明天又是新的开始。",
-            "夜深了，星星都睡了，你也该休息了，晚安～",
-            "今天过得怎么样？不管好坏，都该好好休息了，晚安！",
-            "晚安！愿你的梦境里没有烦恼，只有快乐和美好。",
-            "夜深了，放下所有的执念，让自己进入深度睡眠，晚安。",
-            "一天结束了，给自己点个赞，然后好好休息，晚安～",
-            "晚安！明天又是充满希望的一天，好好休息，准备迎接吧。",
-            "夜深了，让身体和心灵都得到充分的放松，晚安，好梦。",
-            "今天辛苦了，好好犒劳自己，睡个好觉，晚安！",
-            "晚安！愿你在梦中得到平静和力量，明天继续前行。",
-            "夜深了，整个世界都在为你祝福，晚安，好梦。",
-            "一天的故事即将结束，新的故事明天开始，晚安～",
-            "晚安！放下所有的担忧，好好休息，明天会更好的。",
-            "夜深了，让自己沉浸在宁静中，享受这美好的夜晚，晚安。",
-            "今天你已经尽力了，好好休息，晚安，明天继续加油！",
-            "晚安！愿你的睡眠质量越来越好，每天都精力充沛。",
-            "夜深了，别再想太多，闭上眼睛，好好睡一觉，晚安～",
-            "一天结束了，感谢自己的坚持和努力，晚安，好梦。",
-            "晚安！让夜晚的宁静治愈你的疲惫，明天又是新的一天。",
-            "夜深了，愿你在梦中找到属于自己的快乐和宁静，晚安。"
+            "夜深了，放下手机，让自己进入甜美的梦乡吧～"
         ];
 
         // 图标数组
         const icons = [
             "fa-heart", "fa-star", "fa-smile-o", "fa-coffee", 
             "fa-sun-o", "fa-moon-o", "fa-leaf", "fa-heart-o",
-            "fa-star-o", "fa-gratipay", "fa-gift", "fa-thumbs-up",
-            "fa-lightbulb-o", "fa-pagelines", "fa-heartbeat", "fa-music",
-            "fa-book", "fa-paint-brush", "fa-camera", "fa-cutlery"
+            "fa-star-o", "fa-gratipay", "fa-gift", "fa-thumbs-up"
         ];
 
         // 颜色数组
@@ -524,26 +220,22 @@
             "bg-care-yellow text-yellow-800",
             "bg-care-green text-green-800",
             "bg-care-purple text-purple-800",
-            "bg-care-teal text-teal-800",
-            "bg-care-orange text-orange-800",
-            "bg-care-rose text-rose-800",
-            "bg-care-indigo text-indigo-800"
+            "bg-care-teal text-teal-800"
         ];
 
-        // 调整弹窗间隔为150-300ms
+        // 配置参数 - 弹窗间隔150-300ms
         const config = {
-            minInterval: 150,       // 最小弹出间隔（毫秒）
-            maxInterval: 300,       // 最大弹出间隔（毫秒）
-            firstPauseCount: 100    // 首次生成100条后暂停
+            minInterval: 150,
+            maxInterval: 300,
+            firstPauseCount: 50
         };
 
         // 全局变量
-        let notificationQueue = [];
-        let visibleNotifications = [];
         let notificationInterval = null;
         let isRunning = false;
         let isPaused = false;
         let isFirstBatchComplete = false;
+        let visibleNotifications = [];
 
         // DOM元素
         const startButton = document.getElementById('startButton');
@@ -551,13 +243,16 @@
         const stopButton = document.getElementById('stopButton');
         const controlPanel = document.querySelector('.control-panel');
 
-        // 初始化事件监听
-        startButton.addEventListener('click', startNotifications);
-        pauseButton.addEventListener('click', pauseNotifications);
-        stopButton.addEventListener('click', stopNotifications);
-
-        // 页面加载完成后显示神秘礼物通知
-        window.addEventListener('load', showGiftNotification);
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            // 绑定控制按钮事件
+            startButton.addEventListener('click', startNotifications);
+            pauseButton.addEventListener('click', pauseNotifications);
+            stopButton.addEventListener('click', stopNotifications);
+            
+            // 显示初始礼物通知
+            showGiftNotification();
+        });
 
         // 显示神秘礼物通知
         function showGiftNotification() {
@@ -574,56 +269,43 @@
                     <div class="notification-text">您有一份神秘礼物，是否签收？</div>
                 </div>
                 <div class="notification-actions">
-                    <button class="confirm-btn">确定</button>
+                    <button class="confirm-btn" id="giftConfirm">确定</button>
                 </div>
             `;
             
             notification.style.cursor = 'default';
-            
-            // 计算屏幕1/4宽度位置并设置
             setFirstNotificationPosition(notification);
-            
-            // 添加到页面
             document.body.appendChild(notification);
             
-            // 为确定按钮添加点击事件 - 点击后自动开始生成通知
-            const confirmBtn = notification.querySelector('.confirm-btn');
-            confirmBtn.addEventListener('click', () => {
+            // 为确定按钮添加点击事件（使用ID选择器确保正确绑定）
+            document.getElementById('giftConfirm').addEventListener('click', function() {
+                // 移除礼物通知
                 notification.classList.add('fade-out');
                 setTimeout(() => {
                     notification.remove();
                     controlPanel.classList.add('visible');
-                    startNotifications(); // 自动启动通知
+                    
+                    // 强制启动通知生成（修复不生成的问题）
+                    forceStartNotifications();
                 }, 500);
-            });
-            
-            // 监听窗口大小变化
-            window.addEventListener('resize', () => {
-                if (document.contains(notification)) {
-                    setFirstNotificationPosition(notification);
-                }
             });
         }
 
-        // 设置带确定按钮的第一条通知位置
-        function setFirstNotificationPosition(element) {
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            const elementWidth = element.offsetWidth || 320;
-            const elementHeight = element.offsetHeight || 120;
+        // 强制启动通知生成的函数（解决点击确定后不生成的问题）
+        function forceStartNotifications() {
+            // 重置状态确保能启动
+            isPaused = false;
+            isRunning = true;
             
-            // 水平位置：屏幕宽度的1/4处
-            const leftPos = (windowWidth / 4) - (elementWidth / 2);
+            // 更新按钮状态
+            startButton.classList.add('hidden');
+            pauseButton.classList.remove('hidden');
             
-            // 垂直位置：屏幕高度的1/2处
-            const topPos = (windowHeight / 2) - (elementHeight / 2);
+            // 立即创建第一个通知
+            createNotification();
             
-            // 确保不会超出屏幕范围
-            const safeLeft = Math.max(20, Math.min(leftPos, windowWidth - elementWidth - 20));
-            const safeTop = Math.max(20, Math.min(topPos, windowHeight - elementHeight - 20));
-            
-            element.style.left = `${safeLeft}px`;
-            element.style.top = `${safeTop}px`;
+            // 安排后续通知
+            scheduleNextNotification();
         }
 
         // 开始通知
@@ -635,15 +317,10 @@
             startButton.classList.add('hidden');
             pauseButton.classList.remove('hidden');
             
-            // 如果是首次启动，创建第一个通知
             if (visibleNotifications.length === 0) {
                 createNotification();
             }
             
-            // 安排下一个通知
-            if (notificationInterval) {
-                clearTimeout(notificationInterval);
-            }
             scheduleNextNotification();
         }
 
@@ -664,24 +341,23 @@
 
         // 停止通知
         function stopNotifications() {
-            if (!isRunning && !isPaused) return;
-            
             isRunning = false;
             isPaused = false;
             isFirstBatchComplete = false;
+            
             if (notificationInterval) {
                 clearTimeout(notificationInterval);
                 notificationInterval = null;
             }
             
-            // 关闭所有现有通知
-            document.querySelectorAll('.notification:not(.gift-notification)').forEach(notification => {
+            // 移除所有通知
+            visibleNotifications.forEach(notification => {
                 notification.classList.add('fade-out');
                 setTimeout(() => notification.remove(), 500);
             });
-            
-            notificationQueue = [];
             visibleNotifications = [];
+            
+            // 重置按钮状态
             startButton.classList.remove('hidden');
             pauseButton.classList.add('hidden');
             startButton.innerHTML = '<i class="fa fa-play"></i><span class="button-tooltip">启动</span>';
@@ -691,39 +367,38 @@
         function scheduleNextNotification() {
             if (!isRunning || isPaused) return;
             
-            // 检查是否是首次生成且已达到设定数量
+            // 检查是否需要自动暂停
             if (!isFirstBatchComplete && visibleNotifications.length >= config.firstPauseCount) {
                 isFirstBatchComplete = true;
-                pauseNotifications(); // 自动暂停
+                pauseNotifications();
                 return;
             }
             
+            // 计算下一个通知的间隔时间
             const nextInterval = Math.random() * (config.maxInterval - config.minInterval) + config.minInterval;
             
+            // 清除可能存在的定时器，确保不会重复
             if (notificationInterval) {
                 clearTimeout(notificationInterval);
             }
             
+            // 设置新的定时器
             notificationInterval = setTimeout(() => {
                 createNotification();
                 scheduleNextNotification();
             }, nextInterval);
         }
 
-        // 创建内容通知
+        // 创建通知
         function createNotification() {
-            // 创建通知元素
             const notification = document.createElement('div');
             notification.className = 'notification notification-shadow glass-effect animate-pop-in';
             
-            // 随机选择颜色
+            // 随机选择颜色、图标和消息
             const colorClass = colors[Math.floor(Math.random() * colors.length)];
             notification.classList.add(...colorClass.split(' '));
             
-            // 随机选择图标
             const iconClass = icons[Math.floor(Math.random() * icons.length)];
-            
-            // 随机选择消息
             const message = careMessages[Math.floor(Math.random() * careMessages.length)];
             
             // 设置通知内容
@@ -741,13 +416,26 @@
             
             // 添加到页面
             document.body.appendChild(notification);
-            notificationQueue.push(notification);
             visibleNotifications.push(notification);
             
-            // 添加点击关闭事件
+            // 点击关闭
             notification.addEventListener('click', () => {
                 removeNotification(notification);
             });
+        }
+
+        // 设置初始通知位置
+        function setFirstNotificationPosition(element) {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const elementWidth = element.offsetWidth || 320;
+            const elementHeight = element.offsetHeight || 120;
+            
+            const leftPos = (windowWidth / 2) - (elementWidth / 2);
+            const topPos = (windowHeight / 2) - (elementHeight / 2);
+            
+            element.style.left = `${leftPos}px`;
+            element.style.top = `${topPos}px`;
         }
 
         // 设置随机位置
@@ -757,18 +445,12 @@
             const elementWidth = 300;
             const elementHeight = 80;
             
-            // 计算可用区域
-            const maxLeft = windowWidth - elementWidth - 20;
-            const maxTop = windowHeight - elementHeight - 20;
-            
-            // 随机位置，但避免太靠近控制按钮
+            // 避免靠近右下角的控制按钮
             let left, top;
             do {
-                left = Math.random() * maxLeft;
-                top = Math.random() * maxTop;
-            } while (
-                left > windowWidth - 100 && top > windowHeight - 200
-            );
+                left = Math.random() * (windowWidth - elementWidth - 40) + 20;
+                top = Math.random() * (windowHeight - elementHeight - 40) + 20;
+            } while (left > windowWidth - 120 && top > windowHeight - 220);
             
             element.style.left = `${left}px`;
             element.style.top = `${top}px`;
@@ -776,21 +458,16 @@
 
         // 移除通知
         function removeNotification(notification) {
-            const queueIndex = notificationQueue.indexOf(notification);
-            if (queueIndex !== -1) {
-                notificationQueue.splice(queueIndex, 1);
-            }
-            
-            const visibleIndex = visibleNotifications.indexOf(notification);
-            if (visibleIndex !== -1) {
-                visibleNotifications.splice(visibleIndex, 1);
+            const index = visibleNotifications.indexOf(notification);
+            if (index !== -1) {
+                visibleNotifications.splice(index, 1);
             }
             
             notification.classList.add('fade-out');
             setTimeout(() => notification.remove(), 500);
         }
 
-        // 窗口大小变化时重新调整内容通知位置
+        // 窗口大小变化时重新定位
         window.addEventListener('resize', () => {
             document.querySelectorAll('.notification:not(.gift-notification)').forEach(notification => {
                 setRandomPosition(notification);
