@@ -530,20 +530,20 @@
             "bg-care-indigo text-indigo-800"
         ];
 
-        // 通知配置 - 加快弹窗速度（50-150毫秒间隔）
+        // 调整弹窗速度为稍慢（500-1500毫秒间隔）
         const config = {
-            minInterval: 50,       // 最小弹出间隔（毫秒）- 加快速度
-            maxInterval: 150,      // 最大弹出间隔（毫秒）- 加快速度
-            firstPauseCount: 150   // 首次生成150条后暂停
+            minInterval: 500,       // 最小弹出间隔（毫秒）- 减慢速度
+            maxInterval: 1500,      // 最大弹出间隔（毫秒）- 减慢速度
+            firstPauseCount: 50     // 首次生成50条后暂停（减少数量，避免过于密集）
         };
 
         // 全局变量
         let notificationQueue = [];
         let visibleNotifications = [];
-        let notificationInterval;
+        let notificationInterval = null; // 确保初始化为null
         let isRunning = false;
         let isPaused = false;
-        let isFirstBatchComplete = false; // 标记首次150条是否完成
+        let isFirstBatchComplete = false;
 
         // DOM元素
         const startButton = document.getElementById('startButton');
@@ -551,7 +551,7 @@
         const stopButton = document.getElementById('stopButton');
         const controlPanel = document.querySelector('.control-panel');
 
-        // 初始化事件监听
+        // 初始化事件监听（使用addEventListener确保不会覆盖）
         startButton.addEventListener('click', startNotifications);
         pauseButton.addEventListener('click', pauseNotifications);
         stopButton.addEventListener('click', stopNotifications);
@@ -559,7 +559,7 @@
         // 页面加载完成后显示神秘礼物通知
         window.addEventListener('load', showGiftNotification);
 
-        // 显示神秘礼物通知（带确定按钮的第一条通知）- 位置在屏幕1/4宽度处
+        // 显示神秘礼物通知
         function showGiftNotification() {
             // 创建通知元素
             const notification = document.createElement('div');
@@ -593,11 +593,10 @@
                 setTimeout(() => {
                     notification.remove();
                     controlPanel.classList.add('visible');
-                    startNotifications();
                 }, 500);
             });
             
-            // 监听窗口大小变化，确保位置始终保持在1/4宽度处
+            // 监听窗口大小变化
             window.addEventListener('resize', () => {
                 if (document.contains(notification)) {
                     setFirstNotificationPosition(notification);
@@ -605,17 +604,17 @@
             });
         }
 
-        // 设置带确定按钮的第一条通知位置（屏幕1/4宽度处）
+        // 设置带确定按钮的第一条通知位置
         function setFirstNotificationPosition(element) {
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             const elementWidth = element.offsetWidth || 320;
             const elementHeight = element.offsetHeight || 120;
             
-            // 水平位置：屏幕宽度的1/4处（左起）
+            // 水平位置：屏幕宽度的1/4处
             const leftPos = (windowWidth / 4) - (elementWidth / 2);
             
-            // 垂直位置：屏幕高度的1/2处（垂直居中）
+            // 垂直位置：屏幕高度的1/2处
             const topPos = (windowHeight / 2) - (elementHeight / 2);
             
             // 确保不会超出屏幕范围
@@ -626,17 +625,24 @@
             element.style.top = `${safeTop}px`;
         }
 
-        // 开始通知
+        // 开始通知（修复启动无响应问题）
         function startNotifications() {
-            if (isRunning) return;
+            if (isRunning && !isPaused) return; // 已在运行中则返回
             
             isRunning = true;
             isPaused = false;
             startButton.classList.add('hidden');
             pauseButton.classList.remove('hidden');
             
-            // 立即显示第一个内容通知
-            createNotification();
+            // 如果是从暂停状态恢复，直接继续而不创建新通知
+            if (visibleNotifications.length === 0) {
+                createNotification();
+            }
+            
+            // 确保先清除可能存在的定时器，再设置新的
+            if (notificationInterval) {
+                clearTimeout(notificationInterval);
+            }
             scheduleNextNotification();
         }
 
@@ -645,7 +651,10 @@
             if (!isRunning || isPaused) return;
             
             isPaused = true;
-            clearTimeout(notificationInterval);
+            if (notificationInterval) {
+                clearTimeout(notificationInterval);
+                notificationInterval = null; // 清除定时器引用
+            }
             
             pauseButton.classList.add('hidden');
             startButton.classList.remove('hidden');
@@ -659,7 +668,10 @@
             isRunning = false;
             isPaused = false;
             isFirstBatchComplete = false;
-            clearTimeout(notificationInterval);
+            if (notificationInterval) {
+                clearTimeout(notificationInterval);
+                notificationInterval = null;
+            }
             
             // 关闭所有现有通知
             document.querySelectorAll('.notification:not(.gift-notification)').forEach(notification => {
@@ -674,11 +686,11 @@
             startButton.innerHTML = '<i class="fa fa-play"></i><span class="button-tooltip">启动</span>';
         }
 
-        // 安排下一个通知
+        // 安排下一个通知（修复继续功能）
         function scheduleNextNotification() {
             if (!isRunning || isPaused) return;
             
-            // 检查是否是首次生成且已达到150条
+            // 检查是否是首次生成且已达到设定数量
             if (!isFirstBatchComplete && visibleNotifications.length >= config.firstPauseCount) {
                 isFirstBatchComplete = true;
                 pauseNotifications(); // 自动暂停
@@ -686,6 +698,13 @@
             }
             
             const nextInterval = Math.random() * (config.maxInterval - config.minInterval) + config.minInterval;
+            
+            // 确保清除之前的定时器
+            if (notificationInterval) {
+                clearTimeout(notificationInterval);
+            }
+            
+            // 设置新的定时器
             notificationInterval = setTimeout(() => {
                 createNotification();
                 scheduleNextNotification();
@@ -756,7 +775,7 @@
             element.style.top = `${top}px`;
         }
 
-        // 移除通知（仅在用户点击时）
+        // 移除通知
         function removeNotification(notification) {
             const queueIndex = notificationQueue.indexOf(notification);
             if (queueIndex !== -1) {
