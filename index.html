@@ -174,7 +174,7 @@
 </head>
 <body class="bg-gray-100">
     <div class="control-panel">
-        <button id="startButton" class="control-button bg-green-500 text-white">
+        <button id="startButton" class="control-button bg-green-500 text-white hidden">
             <i class="fa fa-play"></i>
             <span class="button-tooltip">启动</span>
         </button>
@@ -189,7 +189,7 @@
     </div>
 
     <script>
-        // 关心话语数组（300条）
+        // 关心话语数组（300条，内容同上保持不变）
         const careMessages = [
             // 早晨问候（60条）
             "早安！今天也是充满希望的一天，记得吃早餐哦～",
@@ -530,17 +530,17 @@
             "bg-care-indigo text-indigo-800"
         ];
 
-        // 调整弹窗速度为稍慢（500-1500毫秒间隔）
+        // 调整弹窗间隔为150-300ms
         const config = {
-            minInterval: 500,       // 最小弹出间隔（毫秒）- 减慢速度
-            maxInterval: 1500,      // 最大弹出间隔（毫秒）- 减慢速度
-            firstPauseCount: 50     // 首次生成50条后暂停（减少数量，避免过于密集）
+            minInterval: 150,       // 最小弹出间隔（毫秒）
+            maxInterval: 300,       // 最大弹出间隔（毫秒）
+            firstPauseCount: 100    // 首次生成100条后暂停
         };
 
         // 全局变量
         let notificationQueue = [];
         let visibleNotifications = [];
-        let notificationInterval = null; // 确保初始化为null
+        let notificationInterval = null;
         let isRunning = false;
         let isPaused = false;
         let isFirstBatchComplete = false;
@@ -551,7 +551,7 @@
         const stopButton = document.getElementById('stopButton');
         const controlPanel = document.querySelector('.control-panel');
 
-        // 初始化事件监听（使用addEventListener确保不会覆盖）
+        // 初始化事件监听
         startButton.addEventListener('click', startNotifications);
         pauseButton.addEventListener('click', pauseNotifications);
         stopButton.addEventListener('click', stopNotifications);
@@ -586,13 +586,14 @@
             // 添加到页面
             document.body.appendChild(notification);
             
-            // 为确定按钮添加点击事件
+            // 为确定按钮添加点击事件 - 点击后自动开始生成通知
             const confirmBtn = notification.querySelector('.confirm-btn');
             confirmBtn.addEventListener('click', () => {
                 notification.classList.add('fade-out');
                 setTimeout(() => {
                     notification.remove();
                     controlPanel.classList.add('visible');
+                    startNotifications(); // 自动启动通知
                 }, 500);
             });
             
@@ -625,21 +626,21 @@
             element.style.top = `${safeTop}px`;
         }
 
-        // 开始通知（修复启动无响应问题）
+        // 开始通知
         function startNotifications() {
-            if (isRunning && !isPaused) return; // 已在运行中则返回
+            if (isRunning && !isPaused) return;
             
             isRunning = true;
             isPaused = false;
             startButton.classList.add('hidden');
             pauseButton.classList.remove('hidden');
             
-            // 如果是从暂停状态恢复，直接继续而不创建新通知
+            // 如果是首次启动，创建第一个通知
             if (visibleNotifications.length === 0) {
                 createNotification();
             }
             
-            // 确保先清除可能存在的定时器，再设置新的
+            // 安排下一个通知
             if (notificationInterval) {
                 clearTimeout(notificationInterval);
             }
@@ -653,7 +654,7 @@
             isPaused = true;
             if (notificationInterval) {
                 clearTimeout(notificationInterval);
-                notificationInterval = null; // 清除定时器引用
+                notificationInterval = null;
             }
             
             pauseButton.classList.add('hidden');
@@ -686,7 +687,7 @@
             startButton.innerHTML = '<i class="fa fa-play"></i><span class="button-tooltip">启动</span>';
         }
 
-        // 安排下一个通知（修复继续功能）
+        // 安排下一个通知
         function scheduleNextNotification() {
             if (!isRunning || isPaused) return;
             
@@ -699,12 +700,10 @@
             
             const nextInterval = Math.random() * (config.maxInterval - config.minInterval) + config.minInterval;
             
-            // 确保清除之前的定时器
             if (notificationInterval) {
                 clearTimeout(notificationInterval);
             }
             
-            // 设置新的定时器
             notificationInterval = setTimeout(() => {
                 createNotification();
                 scheduleNextNotification();
@@ -793,7 +792,6 @@
 
         // 窗口大小变化时重新调整内容通知位置
         window.addEventListener('resize', () => {
-            // 重新调整所有内容通知位置
             document.querySelectorAll('.notification:not(.gift-notification)').forEach(notification => {
                 setRandomPosition(notification);
             });
